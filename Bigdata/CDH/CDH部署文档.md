@@ -198,4 +198,33 @@ cp mysql-connector-java.jar /usr/share/java/  # 注: jar包不能包含版本号
     ![image](picture/cdh4.png)
 6. 默认配置，点击继续
     ![image](picture/cdh5.png)
-7. 
+7. 下载、分配、解压、激活完成后, 点击继续
+    ![image](picture/cdh6.png)
+8. 检查主机正确性
+    - 建议将 /proc/sys/vm/swappiness 设置为最大值 10
+        ```
+        cat << EOF >> /etc/sysctl.conf
+        # Adjust swappiness value
+        vm.swappiness=10
+        EOF
+        ```
+    - 已启用透明大页面压缩
+        ```
+        cat << EOF >> /etc/rc.d/rc.local
+        # Disable transparent_hugepage
+        echo never > /sys/kernel/mm/transparent_hugepage/defrag
+        echo never > /sys/kernel/mm/transparent_hugepage/enabled
+        EOF
+        ```
+    - centos7.x系统，需要为"/etc/rc.d/rc.local"⽂件赋予执⾏权限
+        `chmod +x /etc/rc.d/rc.local`
+    - 重启机器
+    - 将三台主机移除集群并注销重新登录
+    ![image](picture/cdh7.png)
+9. ⾃定义服务，选择部署Zookeeper、HDFS、Yarn服务
+10. ⾃定义⻆⾊分配
+    ![image](picture/cdh8.png)
+11. 数据库设置
+    ![image](picture/cdh9.png)
+12. 默认集群设置, 点击继续
+    ![image](picture/cdh10.png)
